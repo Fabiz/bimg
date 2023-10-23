@@ -26,11 +26,13 @@ BX_PRAGMA_DIAGNOSTIC_PUSH();
 BX_PRAGMA_DIAGNOSTIC_IGNORED_MSVC(4127) // warning C4127: conditional expression is constant
 BX_PRAGMA_DIAGNOSTIC_IGNORED_MSVC(4267) // warning C4267: '=' : conversion from 'size_t' to 'unsigned short', possible loss of data
 BX_PRAGMA_DIAGNOSTIC_IGNORED_MSVC(4334) // warning C4334: '<<' : result of 32 - bit shift implicitly converted to 64 bits(was 64 - bit shift intended ? )
-#define LODEPNG_NO_COMPILE_ENCODER
-#define LODEPNG_NO_COMPILE_DISK
+//#define LODEPNG_NO_COMPILE_ENCODER // deactivated by fso
+//#define LODEPNG_NO_COMPILE_DISK // deactivated by fso
 #define LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS
 #define LODEPNG_NO_COMPILE_ALLOCATORS
-#define LODEPNG_NO_COMPILE_CPP
+//#define LODEPNG_NO_COMPILE_CPP // deactivated by fso
+BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG_GCC("-Wimplicit-int-conversion") // added by fso
+BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG_GCC("-Wconversion") // added by fso
 #include <lodepng/lodepng.cpp>
 BX_PRAGMA_DIAGNOSTIC_POP();
 
@@ -339,7 +341,7 @@ namespace bimg
 					for (uint32_t ii = 0, num = width*height; ii < num; ++ii)
 					{
 						const uint16_t* src = (uint16_t*)data + ii*3;
-						      uint16_t* dst = (uint16_t*)output->m_data + ii*4;
+							  uint16_t* dst = (uint16_t*)output->m_data + ii*4;
 						dst[0] = src[0];
 						dst[1] = src[1];
 						dst[2] = src[2];
